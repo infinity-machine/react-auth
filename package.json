@@ -1,0 +1,33 @@
+{
+  "name": "uhhhh",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "cd ./server && nodemon server.js",
+    "authserver": "cd ./server && nodemon authserver.js",
+    "dev:client": "cd ./client && npm start",
+    "start": "cd ./server && npm start",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "seed:todos": "cd ./server/seeds && node todo.js",
+    "install:client": "cd ./client && npm i",
+    "install:server": "cd ./server && npm i",
+    "install": "cd ./server && npm i && cd ../client && npm i",
+    "build": "cd ./client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infinity-machine/react-auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/infinity-machine/react-auth/issues"
+  },
+  "homepage": "https://github.com/infinity-machine/react-auth#readme",
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  },
+  "description": ""
+}
