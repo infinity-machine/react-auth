@@ -1,7 +1,9 @@
 require('express');
 const { User, Key } = require('../models');
 const jwt = require('jsonwebtoken');
-require('dotenv').config()
+const path = require('path');
+const nodemailer = require('nodemailer');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
 
 function generateAccessToken(user) {
     return jwt.sign({ data: user }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
@@ -9,6 +11,32 @@ function generateAccessToken(user) {
 
 function generateRefreshToken(user) {
     return jwt.sign({ data: user }, process.env.REFRESH_TOKEN_SECRET)
+}
+
+function sendValidationEmail(user_email) {
+    const email_body = ''
+    const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+            user: process.env.MAIL_SEND,
+            pass: process.env.MAIL_PASS
+        }
+    });
+    const options = {
+        from: process.env.MAIL_SEND,
+        to: user_email,
+        subject: 'CONFIRM YOUR EMAIL',
+        text: email_body
+    };
+    transporter.sendMail(options, (error, info) => {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            console.log(`EMAIL SENT: ${info.response}`);
+            res.sendStatus(200)
+        }
+    });
 }
 
 async function registerUser(user_to_register) {
@@ -67,5 +95,5 @@ function authenticateReqToken(req, res, next) {
 }
 
 module.exports = {
-    loginUser, registerUser, authenticateReqToken
+    sendValidationEmail, loginUser, registerUser, authenticateReqToken
 };

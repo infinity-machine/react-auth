@@ -1,5 +1,5 @@
-const { loginUser, registerUser, authenticateReqToken } = require('./auth_controllers');
+const { sendValidationEmail, loginUser, registerUser, authenticateReqToken } = require('./auth_controllers');
 
 module.exports = {
-    loginUser, registerUser, authenticateReqToken
+    sendValidationEmail, loginUser, registerUser, authenticateReqToken
 };

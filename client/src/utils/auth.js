@@ -31,7 +31,7 @@ export async function fetchAccessToken(user) {
   }
 }
 
-export async function registerUser(user) {
+export async function sendValidationEmail(user) {
   const response = await fetch('/auth/register', {
     method: 'POST',
     headers: {
@@ -41,10 +41,9 @@ export async function registerUser(user) {
     body: JSON.stringify(user)
   });
   if (response.status === 200) {
-    const access_token = await response.json();
-    return access_token;
+    return true
   }
   if (response.status !== 200) {
-    throw new Error('ACCOUNT CREATION FAILED')
+    return false
   }
 }
